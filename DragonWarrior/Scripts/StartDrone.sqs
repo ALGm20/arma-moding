@@ -1,0 +1,71 @@
+_objDrone = _this select 0
+
+MyArrayOfdrone = []
+_i  = 0
+#BuildArray
+_Temp = Call format [ "PubArrayofDrone%1",_i   ]
+MyArrayOfdrone = MyArrayOfdrone  + [_Temp ]
+If (_i  < PubArrayofDroneIndex - 1 ) then {_i = _i +1 ; goto "buildArray"}
+
+_i = 0
+_IDofDrone = 0
+#SearchID
+If (_objDrone  != MyArrayOfdrone select _i) then { _i = _i +1 ; goto "SearchID"}
+_IDofDrone =_i 
+
+Call format [ "Drone%1Direction = 0 ; publicvariable {Drone%1Direction}",_IDofDrone ]
+Call format [ "Drone%1Altitude = 0 ; publicvariable {Drone%1Altitude}",_IDofDrone ]
+Call format [ "Drone%1Vitesse = 0 ; publicvariable {Drone%1Vitesse}",_IDofDrone ]
+Call format [ "Drone%1Drift = 0 ; publicvariable {Drone%1Drift}",_IDofDrone ]
+
+_DroneDirection = 0
+_DroneAltitude = 0
+_DroneVitesse = 0
+
+_ok = createDialog "Dragon_Warrior_Drone"
+? !(_ok) : exit
+DragonWarriorvalidation = false
+buttonSetAction [5000 , "DragonWarriorvalidation = true"]  
+  
+; Speed
+sliderSetRange [150, 20, 250]
+sliderSetPosition [150,20]
+sliderSetSpeed [150, 0.5, 2.0]
+
+;Direction
+sliderSetRange [151, -180, 180]
+sliderSetPosition [151, 0]
+sliderSetSpeed [151, 0.5, 2.0]
+
+;Height
+sliderSetRange [152, 25, 50]
+sliderSetPosition [152, 25]
+sliderSetSpeed [152, 0.5, 2.0]
+
+		#loop
+				If  (ctrlvisible 150) then  {_DroneVitesse = sliderPosition 150}
+				If  (ctrlvisible 151) then  {_DroneDirection = sliderPosition 151}
+				If  (ctrlvisible 152) then  {_DroneAltitude = sliderPosition 152}
+	
+		If  (  (ctrlvisible 150) && !(DragonWarriorvalidation )   ) then  {goto "loop"}
+
+	closedialog 0
+	If  ( ! (DragonWarriorvalidation )) then {exit}
+	DragonWarriorvalidation = false
+
+Call format [ "Drone%1Direction = %2 ; publicvariable {Drone%1Direction}",_IDofDrone,_DroneDirection ]
+Call format [ "Drone%1Altitude = %2 ; publicvariable {Drone%1Altitude}",_IDofDrone,_DroneAltitude ]
+Call format [ "Drone%1Vitesse = %2 ; publicvariable {Drone%1Vitesse}",_IDofDrone,_DroneVitesse ]
+
+Call format [ "StartDrone%1 = true ; publicvariable {StartDrone%1}",_IDofDrone ]
+
+_TempoNameAction = format ["Camera uav n°%1",_IDofDrone +1]
+_IDaction =  vehicle(player) addaction [_TempoNameAction, "\DragonWarrior\Scripts\ViewDrone.sqs"]
+call format ["DragonWarriorStartView%1 = %2 ; publicvariable {DragonWarriorStartView%1%2}",_IDaction, _IDofDrone ]
+
+
+
+
+
+
+

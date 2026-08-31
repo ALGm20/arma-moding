@@ -1,0 +1,18 @@
+_ObjDrone = _this select 0
+#start
+@(isengineon _ObjDrone) 
+
+#Loop
+        If ( (_ObjDrone animationPhase "rotor") == 0) then {_ObjDrone animate["rotorr",1]}
+	If ( (_ObjDrone animationPhase "rotor") == 1) then {_ObjDrone animate["rotorr",0]}
+	If ( (_ObjDrone animationPhase "rotorsec") == 0) then {_ObjDrone animate["rotorsecl",1]}
+	If ( (_ObjDrone animationPhase "rotorsec") == 1) then {_ObjDrone animate["rotorsecl",0]}
+	If ( (_ObjDrone animationPhase "rotor") == 0) then {_ObjDrone animate["rotor",1]}
+	If ( (_ObjDrone animationPhase "rotor") == 1) then {_ObjDrone animate["rotor",0]}
+	If ( (_ObjDrone animationPhase "rotorsec") == 0) then {_ObjDrone animate["rotorsec",1]}
+	If ( (_ObjDrone animationPhase "rotorsec") == 1) then {_ObjDrone animate["rotorsec",0]}
+
+	~0.001
+If ( (alive _ObjDrone) && (isengineon _ObjDrone) )  then  {goto "loop"}
+
+goto "start"

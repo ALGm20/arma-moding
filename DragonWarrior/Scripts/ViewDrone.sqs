@@ -1,0 +1,85 @@
+GridCoord = loadFile {\DragonWarrior\Scripts\Functions\GridCoord.sqf}
+TimeToString = loadFile {\DragonWarrior\Scripts\Functions\TimeToString.sqf}
+
+_IDaction = _this select 2
+_IDofDrone = call format ["DragonWarriorStartView%1",_IDaction  ]
+_ObjDrone = MyArrayOfDrone select (_IDofDrone)
+
+If (  ( fuel _objDrone == 0 ) || (!alive _objDrone ) ) then { vehicle(player) removeaction _IDaction ; exit }
+
+_ok = createDialog "Dragon_Warrior_DroneCrontrol"
+If  ( !(_ok)) then { exit }
+
+_cam = "camera" camcreate [0,0,0]
+_cam cameraeffect ["internal", "back"]
+_DroneVitesse = Call format [ "Drone%1Vitesse",_IDofDrone ]
+_DroneAltitude = Call format [ "Drone%1Altitude",_IDofDrone ]
+_DroneDrift =Call format [ "Drone%1Drift ",_IDofDrone ]
+;*****Speed
+sliderSetRange [1000, 0, 300]
+sliderSetPosition [1000,  _DroneVitesse ]
+sliderSetSpeed [1000, 10, 50]
+
+;*****Direction
+sliderSetRange [1001, -1, 1]
+sliderSetPosition [1001, _DroneDrift   ]
+sliderSetSpeed [1001, 0.05, 0.2]
+
+;****Height
+sliderSetRange [1002, 1, 300]
+sliderSetPosition [1002, _DroneAltitude]
+sliderSetSpeed [1002, 10, 50]
+
+;***** Zoom
+sliderSetRange [99, 0.1, 1]
+sliderSetPosition [99, 1]
+sliderSetSpeed [99, 0.05, 0.2]
+
+;*****Rotation Camera
+sliderSetRange [98, -100, 100]
+sliderSetPosition [98, 0]
+sliderSetSpeed [98, 5, 20]
+
+;***** Up down camera
+sliderSetRange [97, -15000, 15000]
+sliderSetPosition [97, 0]
+sliderSetSpeed [97, 1000, 3000]
+
+showCinemaBorder false
+
+
+#loopCamera
+~0.0001
+
+	If ( (ctrlvisible 1000) && (_DroneVitesse !=  sliderPosition 1000) ) then {_DroneVitesse  = sliderPosition 1000;Call format [ "Drone%1vitesse = %2 ; publicvariable {Drone%1vitesse}",_IDofDrone,_DroneVitesse ]}
+	If ( (ctrlvisible 1001) && (_DroneDrift !=  sliderPosition 1001) ) then {_DroneDrift  = sliderPosition 1001;Call format [ "Drone%1Drift = %2 ; publicvariable {Drone%1Drift}",_IDofDrone,_DroneDrift ]}
+	If ( (ctrlvisible 1002) && (_DroneAltitude !=  sliderPosition 1002) ) then {_DroneAltitude  = sliderPosition 1002;Call format [ "Drone%1Altitude = %2 ; publicvariable {Drone%1Altitude}",_IDofDrone,_DroneAltitude ]}
+	
+
+	_cam camsetpos [((getPos _objDrone)  select 0)+ (sin (getdir _objDrone)* 6 )  , ((getPos _objDrone)  select 1)+ (cos (getdir _objDrone)* 6 ) , ((getPos _objDrone)  select 2 )+1] 
+	_cam camSetFov (sliderPosition 99) 
+	_cam camsettarget [(((getpos _objDrone) select 0) + ((sin ((getdir _objDrone) + (sliderPosition 98)  ))* 5000 )), ((getpos _objDrone) select 1)+ (((cos ((getdir _objDrone) + (sliderPosition 98)  ))* 5000 )) , (((getPos _objDrone)  select 2))+ (sliderPosition 97) ]
+
+
+	_cam   camcommit 0
+
+	ctrlsettext [990,format ["%1",sliderPosition 99]]
+	ctrlsettext [200,format ["%1", speed  _objDrone  ]]
+	ctrlsettext [201 ,format ["%1",direction _objDrone  ]]
+	ctrlsettext [202,format ["%1", [getPos _objDrone  ] call gridcoord]]
+	ctrlsettext [203,format ["%1",(getpos _objDrone  ) select 2]]
+	ctrlsettext [204,format ["%1", [time,"HH:MM:SS:MM" ] call timetostring]]
+	ctrlsettext [205,format [" X  %1", (getPos _objDrone )select 0]]
+	ctrlsettext [206,format [" Y  %1 ", (getPos _objDrone )select 1]]
+	
+	
+If  (( ctrlvisible 1000) &&  ( fuel _objDrone != 0 ) && (alive _objDrone ) )then { goto "loopcamera"}
+
+If (  ( fuel _objDrone == 0 ) || (!alive _objDrone ) ) then { vehicle(player) removeaction _IDaction  }
+
+_cam cameraeffect ["terminate", "back"]
+ camdestroy _cam
+closedialog 0
+showCinemaBorder true
+
+

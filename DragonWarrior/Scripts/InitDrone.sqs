@@ -1,0 +1,15 @@
+
+
+; Important ce script sert dans ce script si vous voulez vous en servir ailleurs je en sais pas si ça marche, mais je vous signale que je m'en fou royalement
+;En revanche si vous voulez vous en servir pour fabriquer une arme de destruction de connerie massive vous avez ma permission.
+; Je décline toute responsabilité en cas de dysfonctionement notoire du genre : suppression de la faim dans le monde, pacifisme éhonté, ou encore control fiscal
+
+; Ce script et les autres on été écrit par son auteur, pour l'utiliser vous devez écrire dans votre mission que c'est un script, bon finalement ne mettez rien.
+
+;If you don't speak french don't try to translate this, no matter with sauskraut.
+
+(_this select 0) addaction ["Start UAV","\DragonWarrior\Scripts\StartDrone.sqs"]
+
+GridCoord = loadFile {\DragonWarrior\Scripts\Functions\GridCoord.sqf}
+TimeToString = loadFile {\DragonWarrior\Scripts\Functions\TimeToString.sqf}
+

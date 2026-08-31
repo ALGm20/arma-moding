@@ -1,0 +1,65 @@
+;  ********* initialisation du tableau des drones
+
+If  (format ["%1", MyArrayOfDrone ] == "scalar bool array string 0xfcffffef")  then { MyArrayOfDrone = [] }
+_objDrone = _this select 0
+MyArrayOfDrone = MyArrayOfDrone + [_objDrone  ]
+_IDofDrone = (count MyArrayOfDrone ) - 1
+
+;  ********* index du tableau publique
+
+PubArrayofDroneIndex = count MyArrayOfDrone ;publicvariable "PubArrayofDroneIndex"
+
+; *********  assemblage d'un item du tableau
+
+Call format [ "PubArrayofDrone%1 = _objDrone  ; publicvariable {PubArrayofDrone%1}",_IDofDrone ]
+
+
+Call format [ "StartDrone%1 = false ; publicvariable {StartDrone%1}",_IDofDrone ]
+
+; mise en attente du drone de la séquence de démarrage
+
+@ Call format [ "StartDrone%1",_IDofDrone ]
+
+; ********* contact!
+_objDrone engineon true
+
+_VelX = 0.1
+_VelY = 0.1
+_Velz = 0.1
+
+_DroneVitesse = Call format [ "Drone%1Vitesse",_IDofDrone ]
+_DroneAltitude = Call format [ "Drone%1Altitude",_IDofDrone ]
+_DroneDirection =Call format [ "Drone%1Direction ",_IDofDrone ]
+
+
+; ********* boucle principale de gestion du drone coté serveur
+
+		#Loop1
+
+				~0.01
+				_objDrone setvelocity [(sin (getdir _objDrone  )) * _Velx ,(cos (getdir _objDrone  )) * _VelY,_Velz]
+				If (_DroneVitesse > speed _objdrone) then {_VelX = _VelX + 0.02;_VelY = _VelY + 0.02}	
+				If (_VelX > 2) then {_Velz = _Velz + 0.015}
+	
+
+		If  ( (getpos _objDrone) select 2 < _DroneAltitude ) then { goto "loop1" }
+
+_objDrone setdir (_DroneDirection   + direction _objDrone )
+_vz = 0
+
+#loop2
+_DroneVitesse = Call format [ "Drone%1Vitesse",_IDofDrone ]
+_DroneAltitude = Call format [ "Drone%1Altitude",_IDofDrone ]
+_DroneDrift =Call format [ "Drone%1Drift",_IDofDrone ]
+
+	~0.0001
+	
+	If     (  ( _DroneAltitude - 1 ) < (getpos _objDrone) select 2 ) then  { _vz = -5 }
+	If     (   (_DroneAltitude + 1 ) > (getpos _objDrone) select 2 ) then { _vz = 5  }
+	If     ( ((_vz == -5) || (_vz == 5)) &&  (  ((getpos _objDrone) select 2 > (_DroneAltitude - 1 )) && ((getpos _objDrone) select 2 < (_DroneAltitude + 1 )) ) )  then  { _vz = 0 }
+
+	_objDrone setdir ( _DroneDrift  + direction _objDrone )
+	_objDrone setvelocity [(sin (getdir _objDrone  )) * (sqrt _DroneVitesse)  ,(cos (getdir _objDrone  )) * ( sqrt _DroneVitesse)  ,_vz]
+
+
+If (  ( fuel _objDrone != 0 ) && (alive _objDrone ) ) then { goto "loop2" }
