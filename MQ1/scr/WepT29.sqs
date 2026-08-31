@@ -1,0 +1,35 @@
+
+_plane = _this select 0
+_driver = _this select 1
+_Fuel = Fuel _plane
+
+; Do some checking to make sure the driver is calling the action
+?!(_driver == driver _plane): _driver groupChat "I need to get in first"; exit
+?(Fuel _plane) <=0: _plane groupChat "Out of Fuel"; exit
+?(speed _plane) <=2: exit
+
+_n = 0
+
+#burst
+?(_n >= 80): exit
+
+; get the current velocity of the vehicle
+_xvel = velocity _plane select 0
+_yvel = velocity _plane select 1
+_zvel = velocity _plane select 2
+
+; now set the new velocity
+_plane setVelocity [(_xvel * 1.03), (_yvel * 1.03), (_zvel * 1.03)]
+
+_n = _n + 1
+
+; short delay
+~0.15
+?(speed _plane) >=300: (speed _plane)==300; goto "end"
+goto "burst"
+
+#end
+_Fuel = _Fuel -0.02
+_plane setfuel _Fuel
+
+exit

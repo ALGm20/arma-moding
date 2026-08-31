@@ -1,0 +1,14 @@
+_plane = _this select 0
+
+~.2
+
+; Init check for the plane started as Flying in the mission
+?(speed _plane >100 && isengineon _plane): [_plane] exec "\mq1\scr\gearup.sqs", goto "Skip"
+
+_plane setobjecttexture[1, ""]
+_plane setobjecttexture[2, ""]
+
+_plane setobjecttexture[4, "\mq1\1.paa"]
+_plane setobjecttexture[3, "\mq1\1.paa"]
+
+exit

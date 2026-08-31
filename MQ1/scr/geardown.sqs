@@ -1,0 +1,12 @@
+_plane = _this select 0
+~2
+_plane animate ["LeftGear", 0]
+_plane animate ["RightGear", 0]
+_plane animate ["NoseGear", 0]
+~2
+_plane setobjecttexture[1, ""]
+_plane setobjecttexture[2, ""]
+
+_plane setobjecttexture[4, "\mq1\1.paa"]
+_plane setobjecttexture[3, "\mq1\1.paa"]
+exit
