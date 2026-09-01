@@ -1,0 +1,252 @@
+version=11;
+class Mission
+{
+	addOns[]=
+	{
+		"rdrone",
+		"X1SP",
+		"x2sp",
+		"x1mines",
+		"objects11"
+	};
+	addOnsAuto[]=
+	{
+		"rdrone",
+		"X1SP",
+		"x2sp",
+		"x1mines",
+		"objects11"
+	};
+	randomSeed=2396163;
+	class Intel
+	{
+	};
+	class Groups
+	{
+		items=1;
+		class Item0
+		{
+			side="WEST";
+			class Vehicles
+			{
+				items=2;
+				class Item0
+				{
+					position[]={9926.610352,26.730000,3921.231934};
+					id=0;
+					side="WEST";
+					vehicle="SoldierWB";
+					player="PLAYER COMMANDER";
+					leader=1;
+					skill=0.600000;
+				};
+				class Item1
+				{
+					position[]={9935.462891,26.730000,3926.851318};
+					id=9;
+					side="WEST";
+					vehicle="SoldierWB";
+					skill=0.600000;
+				};
+			};
+		};
+	};
+	class Vehicles
+	{
+		items=20;
+		class Item0
+		{
+			position[]={9927.764648,26.730000,3943.738281};
+			id=1;
+			side="EMPTY";
+			vehicle="rdrone";
+			skill=0.600000;
+		};
+		class Item1
+		{
+			position[]={9934.376953,26.730000,3939.431396};
+			id=2;
+			side="EMPTY";
+			vehicle="Lodka";
+			skill=0.600000;
+		};
+		class Item2
+		{
+			position[]={9927.402344,26.730000,3952.151611};
+			id=3;
+			side="EMPTY";
+			vehicle="CampB";
+			skill=0.600000;
+		};
+		class Item3
+		{
+			position[]={9929.863281,26.730000,3943.302246};
+			id=4;
+			side="EMPTY";
+			vehicle="Fire2";
+			skill=0.600000;
+		};
+		class Item4
+		{
+			position[]={9935.839844,26.730000,3950.657715};
+			id=5;
+			side="EMPTY";
+			vehicle="Ladder";
+			skill=0.600000;
+		};
+		class Item5
+		{
+			position[]={9932.681641,26.730000,3943.752686};
+			id=6;
+			side="EMPTY";
+			vehicle="CampA";
+			skill=0.600000;
+		};
+		class Item6
+		{
+			position[]={9918.833008,26.730000,3950.731201};
+			azimut=-5.102173;
+			id=7;
+			side="EMPTY";
+			vehicle="XMine";
+			skill=0.600000;
+		};
+		class Item7
+		{
+			position[]={9923.675781,26.730000,3952.281738};
+			id=8;
+			side="EMPTY";
+			vehicle="AP14_Mine";
+			skill=0.600000;
+		};
+		class Item8
+		{
+			position[]={10067.821289,27.106894,4098.706543};
+			azimut=-314.695984;
+			id=10;
+			side="EMPTY";
+			vehicle="a1chu";
+			skill=0.600000;
+		};
+		class Item9
+		{
+			position[]={10021.650391,26.730000,4118.312988};
+			azimut=-314.695984;
+			id=11;
+			side="EMPTY";
+			vehicle="a3chu";
+			skill=0.600000;
+		};
+		class Item10
+		{
+			position[]={10057.528320,26.730000,4132.742188};
+			azimut=-314.695984;
+			id=12;
+			side="EMPTY";
+			vehicle="a2chu";
+			skill=0.600000;
+		};
+		class Item11
+		{
+			position[]={10071.101563,27.316717,4098.438477};
+			azimut=-314.695984;
+			id=13;
+			side="EMPTY";
+			vehicle="a4chu";
+			skill=0.600000;
+		};
+		class Item12
+		{
+			position[]={10063.202148,27.157137,4090.621338};
+			azimut=-314.695984;
+			id=14;
+			side="EMPTY";
+			vehicle="a4chu";
+			skill=0.600000;
+		};
+		class Item13
+		{
+			position[]={10066.879883,27.218128,4094.586426};
+			azimut=-314.695984;
+			id=15;
+			side="EMPTY";
+			vehicle="a4chu";
+			skill=0.600000;
+		};
+		class Item14
+		{
+			position[]={10058.987305,27.058912,4086.770508};
+			azimut=-314.695984;
+			id=16;
+			side="EMPTY";
+			vehicle="a4chu";
+			skill=0.600000;
+		};
+		class Item15
+		{
+			position[]={10069.017578,27.284700,4096.129395};
+			azimut=-314.695984;
+			id=17;
+			side="EMPTY";
+			vehicle="a4chu";
+			skill=0.600000;
+		};
+		class Item16
+		{
+			position[]={10061.118164,27.125038,4088.314209};
+			azimut=-314.695984;
+			id=18;
+			side="EMPTY";
+			vehicle="a4chu";
+			skill=0.600000;
+		};
+		class Item17
+		{
+			position[]={10064.800781,27.186518,4092.274658};
+			azimut=-314.695984;
+			id=19;
+			side="EMPTY";
+			vehicle="a4chu";
+			skill=0.600000;
+		};
+		class Item18
+		{
+			position[]={10056.900391,27.027056,4084.453125};
+			azimut=-314.695984;
+			id=20;
+			side="EMPTY";
+			vehicle="a4chu";
+			skill=0.600000;
+		};
+		class Item19
+		{
+			position[]={10070.806641,28.625355,4065.966064};
+			azimut=-438.913696;
+			id=21;
+			side="EMPTY";
+			vehicle="a3chu";
+			skill=0.600000;
+		};
+	};
+};
+class Intro
+{
+	randomSeed=7482371;
+	class Intel
+	{
+	};
+};
+class OutroWin
+{
+	randomSeed=12232195;
+	class Intel
+	{
+	};
+};
+class OutroLoose
+{
+	randomSeed=12976643;
+	class Intel
+	{
+	};
+};
